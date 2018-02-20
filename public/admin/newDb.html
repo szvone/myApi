@@ -50,13 +50,13 @@
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">列备注</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" id="line_bz" name="number" autocomplete="off" class="layui-input" placeholder="中文备注" onchange="ctp()">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">列名</label>
-                <div class="layui-input-inline">
+                <div class="layui-input-block">
                     <input type="text" id="line_name" name="number" autocomplete="off" class="layui-input" placeholder="英文列名">
                 </div>
             </div>
@@ -91,7 +91,7 @@
 
     <div class="layui-form-item" style="text-align: right;">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="systemParameter" onclick="newDb()">创建数据库</button>
+            <button class="layui-btn" lay-submit="" lay-filter="systemParameter">创建数据库</button>
             <button type="reset" class="layui-btn layui-btn-primary" onclick="window.location.href=''">重置</button>
         </div>
     </div>
@@ -121,7 +121,6 @@
         //执行渲染
         myTable = table.render({
             elem: '#test' //指定原始表格元素选择器（推荐id选择器）
-            ,height: 315 //容器高度
             ,cols: [[
                 {field:'bz', title:'列备注',edit:"text"}
                 ,{field:'name', title:'列名',edit:"text"}
@@ -130,6 +129,7 @@
                 ,{title:'操作', toolbar: '#barDemo'}
             ]]
             ,data:[{bz:"自增ID",name:"id",type:"id",length:"11"}]
+            ,height:250
         });
 
         //监听工具条

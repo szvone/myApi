@@ -15,6 +15,15 @@
     <style>body{overflow-y: scroll;}</style>
 </head>
 <body class="body">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        <a class="layui-btn linksAdd_btn" style="background-color:#5FB878" onclick="opennewdb()">新建数据表</a>
+    </div>
+    <div class="layui-inline">
+        <a class="layui-btn layui-btn-danger batchDel" onclick="myTable.reload();">刷新列表</a>
+    </div>
+</blockquote>
+
 
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
@@ -119,7 +128,19 @@
 
     });
 
-
+    function opennewdb() {
+        layer.open({
+            type: 2,
+            area: ['100%', '100%'],
+            fixed: false, //不固定
+            maxmin: true,
+            title:"创建数据表",
+            content: 'newDb.html',
+            end:function () {
+                myTable.reload();
+            }
+        });
+    }
 </script>
 </body>
 </html>
