@@ -5,19 +5,9 @@
       "icon": "&#xe68e;",
       "href": "admin/welcome.html"
     }, {
-      "text": "数据库",
+      "text": "管理数据库",
       "icon": "&#xe630;",
-      "subset": [
-        {
-          "text": "新建数据库",
-          "icon": "&#xe638;",
-          "href": "admin/newDb.html"
-        },{
-          "text": "管理数据库",
-          "icon": "&#xe62d;",
-          "href": "admin/DbList.html"
-        }
-      ]
+      "href": "admin/dblist.html"
     },{
       "text": "其他",
       "icon": "&#xe620;",

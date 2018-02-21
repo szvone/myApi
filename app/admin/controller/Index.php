@@ -5,7 +5,8 @@ use think\Db;
 
 class Index
 {
-
+    public function test(){
+    }
 
     private function isLogin(){
         return true;
@@ -15,7 +16,7 @@ class Index
     public function getDbList(){
         if (!$this->isLogin())return;
 
-        $sql = "select * from information_schema.tables where table_schema='dbapi';";
+        $sql = "select * from information_schema.tables where table_schema='".config("database")['database']."';";
 
         $res = Db::query($sql);
 

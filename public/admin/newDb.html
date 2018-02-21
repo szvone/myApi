@@ -91,7 +91,7 @@
 
     <div class="layui-form-item" style="text-align: right;">
         <div class="layui-input-block">
-            <button class="layui-btn" lay-submit="" lay-filter="systemParameter">创建数据库</button>
+            <button class="layui-btn" lay-submit="" lay-filter="systemParameter" onclick="newDb()">创建数据库</button>
             <button type="reset" class="layui-btn layui-btn-primary" onclick="window.location.href=''">重置</button>
         </div>
     </div>
@@ -285,6 +285,14 @@
         });
         $.post("index/createDb",data,function (data) {
             console.log(data);
+            if (data==1){
+                var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+                parent.layer.msg('数据表创建成功！');
+                parent.layer.close(index);
+
+            }else{
+                layer.msg("创建失败！");
+            }
         })
 
     }
