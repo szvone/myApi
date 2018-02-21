@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>数据库列表</title>
+    <title>管理数据</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -28,11 +28,6 @@
 <table class="layui-hide" id="test" lay-filter="test"></table>
 
 <script type="text/html" id="barDemo">
-
-    <a class="layui-btn layui-btn-xs layui-btn-primary " lay-event="gldb">管理</a>
-
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="dcdb">导出</a>
-    <a class="layui-btn layui-btn-xs" lay-event="qkdb">清空</a>
     <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="deldb">删除</a>
 </script>
 
@@ -40,6 +35,13 @@
 <script type="text/javascript" src="../frame/layui/layui.js"></script>
 
 <script>
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null)
+            return unescape(r[2]);
+        return null;
+    }
 
     var myTable;
     layui.use('table', function(){
@@ -47,24 +49,34 @@
         layer.msg('数据加载中', {
             icon: 16
             ,shade: 0.01
+            ,time:0
         });
 
-        myTable = table.render({
-            elem: '#test'
-            ,url:'index/getDbList'
-            ,cellMinWidth: 80
-            ,cols: [[
-                {field:'TABLE_NAME', title: '数据表名'}
-                ,{field:'TABLE_COMMENT', title: '备注', sort: true}
-                ,{field:'CREATE_TIME', title: '创建时间', sort: true}
-                ,{field:'TABLE_ROWS', title: '数据行数', sort: true}
-                ,{title: '操作', toolbar: '#barDemo'}
-            ]]
-            ,page: false
-            ,done:function(){
-                layer.closeAll();
+        $.post("index/getDbColumn","dbname="+getQueryString("dbname"),function (data) {
+            data = JSON.parse(data);
+
+            var cols = [];
+            for (var i =0;i<data.length;i++){
+                cols.push({field:data[i].COLUMN_NAME, title: data[i].COLUMN_NAME+"("+data[i].COLUMN_COMMENT+")", sort: true,edit:"text"})
             }
-        });
+            cols.push({title: '操作', toolbar: '#barDemo'});
+
+            console.log(cols)
+
+            myTable = table.render({
+                elem: '#test'
+                ,url:'index/getDbdata?dbname='+getQueryString("dbname")
+                ,cellMinWidth: 80
+                ,cols: [cols]
+                ,page: false
+                ,done:function(){
+                    layer.closeAll();
+                }
+            });
+
+        })
+
+
 
 
         //监听工具条
@@ -73,7 +85,7 @@
             if(obj.event === 'deldb'){
 
                 //询问框
-                layer.confirm('确定要删除该数据库吗？<br>注意，该操作将会删除数据库内所有内容同时删除数据库，操作不可逆，请谨慎选择！', {
+                layer.confirm('确定要删除该行数据吗？', {
                     btn: ['确定','取消'] //按钮
                 }, function(){
                     // layer.msg('的确很重要', {icon: 2});
@@ -94,46 +106,7 @@
 
                 });
 
-
-            } else if(obj.event === 'qkdb'){
-                //询问框
-                layer.confirm('确定要清空该数据库吗？<br>注意，该操作将会删除数据库内所有内容，操作不可逆，请谨慎选择！', {
-                    btn: ['确定','取消'] //按钮
-                }, function(){
-                    // layer.msg('的确很重要', {icon: 2});
-                    layer.msg('操作中', {
-                        icon: 16
-                        ,shade: 0.01
-                        ,time:0
-                    });
-                    $.post("index/qkdb","name="+data.TABLE_NAME,function (data) {
-                        if(data=="1"){
-                            layer.msg("操作成功！");
-                        }else{
-                            layer.msg("操作失败！");
-                        }
-                        myTable.reload();
-                    });
-                }, function(){
-
-                });
-            } else if(obj.event === 'gldb'){
-                layer.open({
-                    type: 2,
-                    area: ['100%', '100%'],
-                    fixed: false, //不固定
-                    maxmin: true,
-                    title:"管理数据库",
-                    content: 'DbData.html?dbname='+data.TABLE_NAME,
-                    end:function () {
-                        myTable.reload();
-                    }
-                });
-
             }
-
-
-
 
         });
 

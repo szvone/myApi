@@ -85,5 +85,35 @@ class Index
         //print_r($res);
     }
 
+    //获取数据库表列
+    public function getDbColumn(){
+        if (!$this->isLogin())return;
+
+        $sql = "SELECT COLUMN_NAME, DATA_TYPE, COLUMN_COMMENT FROM information_schema.columns WHERE TABLE_SCHEMA = '".config("database")['database']."' and table_name = '".input("dbname")."'";
+
+        $res = Db::query($sql);
+
+        echo json_encode($res);
+
+    }
+
+    //获取数据库表数据
+    public function getDbData(){
+        if (!$this->isLogin())return;
+
+        $res = Db::name(input("dbname"))
+            ->limit((input("page")-1)*input("limit").','.input("limit"))
+            ->select();
+
+        $count = sizeof($res);
+        $array = array(
+            "code" => 0,
+            'msg' => "",
+            "count" => $count,
+            "data" => $res
+        );
+        echo json_encode($array);
+
+    }
 
 }
