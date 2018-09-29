@@ -128,7 +128,7 @@ body .layui-layout-admin .footer-demo{height: 50px; padding: 5px 0;}
 .site-zfj-anim i{-webkit-animation-name: site-zfj; animation-name: site-zfj; -webkit-animation-duration: 5s; animation-duration: 5s;  -webkit-animation-timing-function: linear; animation-timing-function: linear;}
 
 
-.site-desc{position: relative; height: 70px; margin-top: 25px;  background: url(../images/layui/desc.png) center no-repeat;}
+.site-desc{position: relative; height: 70px; margin-top: 25px;  background: url(../frame/static/image/dec.png) center no-repeat;}
 .site-desc-anim{-webkit-animation-name: site-desc; animation-name: site-desc;}
 
 .site-desc cite{position: absolute; bottom: -40px; left: 0; width: 100%; color: #c2c2c2; font-style: normal;}

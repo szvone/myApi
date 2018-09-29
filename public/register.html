@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>注册</title>
+    <link rel="stylesheet" href="frame/layui/css/layui.css">
+    <link rel="stylesheet" href="frame/static/css/style.css">
+    <link rel="icon" href="frame/static/image/code.png">
+</head>
+<body>
+
+<div class="login-main">
+    <header class="layui-elip">注册账号</header>
+    <form class="layui-form" action="">
+        <div class="layui-input-inline">
+            <input type="text" name="user" required  lay-verify="required|username" placeholder="账号" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="password" name="pass" required  lay-verify="required|pass" placeholder="密码" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <input type="text" name="email" required  lay-verify="required|email" placeholder="邮箱(重要，找回密码用)" autocomplete="off" class="layui-input">
+        </div>
+
+        <div class="layui-input-inline login-btn">
+            <button class="layui-btn" lay-submit="" lay-filter="demo1">注册</button>
+        </div>
+        <hr/>
+        <p><a href="login.html" class="fl">已有账号？立即登录</a><a href="javascript:;" class="fr">忘记密码？</a></p>
+    </form>
+</div>
+
+
+<script src="frame/layui/layui.js"></script>
+<script type="text/javascript">
+    layui.use(['form'], function () {
+        var form    = layui.form
+            ,$      = layui.jquery;
+
+        // you code ...
+        form.verify({
+            username: function(value, item){ //value：表单的值、item：表单的DOM对象
+                if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+                    return '用户名不能有特殊字符';
+                }
+                if(/(^\_)|(\__)|(\_+$)/.test(value)){
+                    return '用户名首尾不能出现下划线\'_\'';
+                }
+                if(/^\d+\d+\d$/.test(value)){
+                    return '用户名不能全为数字';
+                }
+            }
+
+            //我们既支持上述函数式的方式，也支持下述数组的形式
+            //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+            ,pass: [
+                /^[\S]{6,12}$/
+                ,'密码必须6到12位，且不能出现空格'
+            ]
+        });
+
+        form.on('submit(demo1)', function(data){
+            var data = "user="+data.field.user+"&pass="+data.field.pass+"&email="+data.field.email;
+            layer.msg('正在注册', {
+                icon: 16
+                ,shade: 0.01
+            });
+            $.post("user/index/register",data,function (data) {
+                data = JSON.parse(data);
+                if (data.state==200){
+                    layer.msg("注册成功，正在跳转...");
+                    setTimeout(function(){window.location.href='register2.html'},1000);
+                }else{
+                    layer.msg(data.msg);
+                }
+            });
+
+
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

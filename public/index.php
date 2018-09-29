@@ -13,6 +13,8 @@
 
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../app/');
+
+
 //自定义配置文件目录
 define("CONF_PATH", __DIR__ . '/../conf/');
 

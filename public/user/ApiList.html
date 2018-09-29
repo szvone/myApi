@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>API列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="../frame/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="../frame/static/css/style.css">
+    <style>body{overflow-y: scroll;}</style>
+</head>
+<body class="body">
+<blockquote class="layui-elem-quote news_search">
+    <div class="layui-inline">
+        本站所有API免费提供使用，请勿用于非法用途！
+    </div>
+</blockquote>
+
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<script type="text/html" id="barDemo">
+
+    <a class="layui-btn layui-btn-xs layui-btn-primary " lay-event="info">说明文档</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="history">调用记录</a>
+</script>
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript" src="../frame/layui/layui.js"></script>
+
+<script>
+
+    var myTable;
+    layui.use('table', function(){
+        var table = layui.table;
+        layer.msg('数据加载中', {
+            icon: 16
+            ,shade: 0.01
+        });
+
+        myTable = table.render({
+            elem: '#test'
+            ,url:'index/getApiList'
+            ,cellMinWidth: 80
+            ,cols: [[
+                {field:'name', title: 'API名称'}
+                ,{field:'key', title: '授权Key'}
+                ,{field:'last', title: '最后调用时间', sort: true}
+                ,{field:'today', title: '今日调用数', sort: true}
+                ,{field:'all', title: '总调用数', sort: true}
+                ,{title: '操作', toolbar: '#barDemo'}
+            ]]
+            ,page: false
+            ,done:function(){
+                layer.closeAll();
+            }
+        });
+
+
+        //监听工具条
+        table.on('tool(test)', function(obj){
+            var data = obj.data;
+            if(obj.event === 'info'){
+
+                layer.open({
+                    type: 2,
+                    area: ['100%', '100%'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    title:"查看文档",
+                    content: 'info/'+data.id+'.html?key='+data.key,
+                    end:function () {
+                        myTable.reload();
+                    }
+                });
+
+
+            }else if(obj.event === 'history'){
+                layer.open({
+                    type: 2,
+                    area: ['100%', '100%'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    title:"调用记录",
+                    content: 'ApiHistoryList.html?key='+data.key,
+                    end:function () {
+                        myTable.reload();
+                    }
+                });
+
+            }
+
+
+
+
+        });
+
+
+    });
+
+
+</script>
+</body>
+</html>

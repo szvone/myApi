@@ -1,159 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title>Vone - API小站</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>DbAPI数据库助手</title>
-    <link rel="stylesheet" href="frame/layui/css/layui.css">
-    <link rel="stylesheet" href="./frame/static/css/style.css">
-    <link rel="icon" href="./frame/static/image/code.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="frame/layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="css/global.css" media="all">
 </head>
-<body>
-
-<!-- layout admin -->
-<div class="layui-layout layui-layout-admin"> <!-- 添加skin-1类可手动修改主题为纯白，添加skin-2类可手动修改主题为蓝白 -->
-    <!-- header -->
-    <div class="layui-header my-header">
-        <a href="index.html">
-            <!--<img class="my-header-logo" src="" alt="logo">-->
-            <div class="my-header-logo">DbAPI数据库助手</div>
+<body class="site-home" id="LAY_home" style="background-color: #eee;">
+<div class="layui-header header header-index">
+    <div class="layui-main">
+        <a class="logo" href="/" style="font-size: 28px;color: white">
+            Vone - API小站
         </a>
-        <div class="my-header-btn">
-            <button class="layui-btn layui-btn-small btn-nav"><i class="layui-icon">&#xe65f;</i></button>
-        </div>
 
-        <!-- 顶部左侧添加选项卡监听 -->
-        <!--<ul class="layui-nav" lay-filter="side-top-left">-->
-            <!--&lt;!&ndash;<li class="layui-nav-item"><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></li>-->
-            <!--<li class="layui-nav-item">-->
-                <!--<a href="javascript:;"><i class="layui-icon">&#xe621;</i>基础</a>-->
-                <!--<dl class="layui-nav-child">-->
-                    <!--<dd><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>-->
-                    <!--<dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>-->
-                <!--</dl>-->
-            <!--</li>&ndash;&gt;-->
-        <!--</ul>-->
+        <ul class="layui-nav">
+            <li class="layui-nav-item ">
+                <a href="register.html">注册<!-- <span class="layui-badge-dot"></span> --></a>
+            </li>
+            <li class="layui-nav-item ">
+                <a href="login.html">登录<!-- <span class="layui-badge-dot"></span> --></a>
+            </li>
 
-        <!-- 顶部右侧添加选项卡监听 -->
-        <ul class="layui-nav my-header-user-nav" lay-filter="side-top-right">
-            <!--<li class="layui-nav-item"><a href="javascript:;" class="pay" href-url="">支持作者</a></li>-->
-            <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><i class="layui-icon">&#xe629;</i>主题</a>
-                <dl class="layui-nav-child">
-                    <dd data-skin="0"><a href="javascript:;">默认</a></dd>
-                    <dd data-skin="1"><a href="javascript:;">纯白</a></dd>
-                    <dd data-skin="2"><a href="javascript:;">蓝白</a></dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item">
-                <a class="name" href="javascript:;"><i class="layui-icon">&#xe612;</i> Admin </a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                    <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
-                    <dd><a href="/"><i class="layui-icon">&#x1006;</i>退出</a></dd>
-                </dl>
-            </li>
+
         </ul>
-
     </div>
-    <!-- side -->
-    <div class="layui-side my-side">
-        <div class="layui-side-scroll">
-            <!-- 左侧主菜单添加选项卡监听 -->
-            <ul class="layui-nav layui-nav-tree" lay-filter="side-main">
-                <!--<li class="layui-nav-item"> 去除 layui-nav-itemed 即可关闭展开
-                    <a href="javascript:;"><i class="layui-icon">&#xe620;</i>基础</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/btn.html"><i class="layui-icon">&#xe621;</i>按钮</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/form.html"><i class="layui-icon">&#xe621;</i>表单</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/table.html"><i class="layui-icon">&#xe621;</i>表格</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tab-card.html"><i class="layui-icon">&#xe621;</i>选项卡</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/progress-bar.html"><i class="layui-icon">&#xe621;</i>进度条</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/folding-panel.html"><i class="layui-icon">&#xe621;</i>折叠面板</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/auxiliar.html"><i class="layui-icon">&#xe621;</i>辅助元素</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item layui-nav-itemed"> 去除 layui-nav-itemed 即可关闭展开
-                    <a href="javascript:;"><i class="layui-icon">&#xe628;</i>扩展</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" href-url="demo/login.html"><i class="layui-icon">&#xe621;</i>登录页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/register.html"><i class="layui-icon">&#xe621;</i>注册页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/login2.html"><i class="layui-icon">&#xe621;</i>登录页2</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/map.html"><i class="layui-icon">&#xe621;</i>图表</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/add-edit.html"><i class="layui-icon">&#xe621;</i>添加-修改</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/data-table.html"><i class="layui-icon">&#xe621;</i>data-table 表格页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tree-table.html"><i class="layui-icon">&#xe621;</i>Tree table树表格页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/404.html"><i class="layui-icon">&#xe621;</i>404页</a></dd>
-                        <dd><a href="javascript:;" href-url="demo/tips.html"><i class="layui-icon">&#xe621;</i>提示页</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=ad6ba602ae228be2222ddb804086e0cfa42da3d74e34b383b665c2bec1adfc6e"><i class="layui-icon">&#xe61e;</i>加入群下载源码</a></li>-->
-            </ul>
-
+</div>
+<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+<div class="site-banner">
+    <div class="site-banner-bg" style="background-image: url();background-position: center;background-repeat: no-repeat;background-attachment: fixed;background-size:100% 100%">
+    </div>
+    <div class="site-banner-main">
+        <div class="site-zfj">
+            <i class="layui-icon" style="color: #fff; color: rgba(255,255,255,.7);">&#xe609;</i>
+        </div>
+        <div class="layui-anim site-desc">
+            <cite>本站所有API免费提供使用，但请勿用于非法用途！</cite>
+        </div>
+        <div class="site-download">
+            <a href="login.html" class="layui-inline site-down" target="_blank">
+                <cite class="layui-icon">&#xe658;</cite>
+                开始使用
+            </a>
+        </div>
+        <div class="site-banner-other">
+            <a href="#main" rel="nofollow" class="site-fork">
+                <i class="layui-icon">&#xe62e;</i>
+                当前拥有API数量：3
+            </a>
         </div>
     </div>
-    <!-- body -->
-    <div class="layui-body my-body">
-        <div class="layui-tab layui-tab-card my-tab" lay-filter="card" lay-allowClose="true">
-            <ul class="layui-tab-title">
-                <li class="layui-this" lay-id="1"><span><i class="layui-icon">&#xe638;</i>欢迎页</span></li>
-            </ul>
-            <div class="layui-tab-content">
-                <div class="layui-tab-item layui-show">
-                    <iframe id="iframe" src="admin/welcome.html" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
+</div>
+<div class="layui-main" id="main">
+
+    <ul class="site-idea">
+        <li>
+            <fieldset class="layui-elem-field layui-field-title" onclick="openapi('1')">
+                <legend>图床API</legend>
+                <p>还在为服务器空间不足而烦恼？还在为用户上传图片无处保存而担忧？那就快使用图床API吧，支持表单/post图片base64编码双方式上传，无限制图片张数，腾讯CDN加速急速加载，完全免费！</p>
+            </fieldset>
+        </li>
+        <li>
+            <fieldset class="layui-elem-field layui-field-title" onclick="openapi('2')">
+                <legend>实时天气</legend>
+                <p>天气api，没什么好说的，可以获取实时天气信息，和五天内天气预报。</p>
+            </fieldset>
+        </li>
+        <li>
+            <fieldset class="layui-elem-field layui-field-title" onclick="openapi('2')">
+                <legend>地球实时照片</legend>
+                <p>返回地球实时照片地址，数据来源自地球同步卫星向日葵8号。</p>
+            </fieldset>
+        </li>
+    </ul>
+
+    <ul class="site-idea">
+        <li>
+            <fieldset class="layui-elem-field layui-field-title">
+                <legend>更多API</legend>
+                <p>本站所有API为本人在开发过程中实际需求而开发，因此API数量较少，更多API逐渐增加中。</p>
+            </fieldset>
+        </li>
+    </ul>
+
+
+</div>
+<div class="layui-footer footer footer-index">
+    <div class="layui-main">
+        <p>&copy; 2018 by：vone</p>
+
     </div>
-    <!-- footer -->
-    <div class="layui-footer my-footer">
-        <p>数据库API助手 - V0.1</p>
-        <p>by: vone</p>
-    </div>
 </div>
-
-<!-- pay -->
-<div class="my-pay-box none">
-    <div><img src="./frame/static/image/zfb.png" alt="支付宝"><p>支付宝</p></div>
-    <div><img src="./frame/static/image/wx.png" alt="微信"><p>微信</p></div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<div class="site-tree-mobile layui-hide">
+    <i class="layui-icon">&#xe602;</i>
 </div>
+<div class="site-mobile-shade"></div>
+<script src="frame/layui/layui.js" charset="utf-8"></script>
+<script>
 
-<!-- 右键菜单 -->
-<div class="my-dblclick-box none">
-    <table class="layui-tab dblclick-tab">
-        <tr class="card-refresh">
-            <td><i class="layui-icon">&#x1002;</i>刷新当前标签</td>
-        </tr>
-        <tr class="card-close">
-            <td><i class="layui-icon">&#x1006;</i>关闭当前标签</td>
-        </tr>
-        <tr class="card-close-all">
-            <td><i class="layui-icon">&#x1006;</i>关闭所有标签</td>
-        </tr>
-    </table>
-</div>
+    layui.config({
+        base: '//res.layui.com/lay/modules/layui/'
+        ,version: '1515376178709'
+    }).use('global');
 
-<script type="text/javascript" src="frame/layui/layui.js"></script>
-<script type="text/javascript" src="./frame/static/js/vip_comm.js"></script>
-<script type="text/javascript">
-layui.use(['layer','vip_nav'], function () {
-
-    // 操作对象
-    var layer       = layui.layer
-        ,vipNav     = layui.vip_nav
-        ,$          = layui.jquery;
-
-    // 顶部左侧菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.top_left('./json/nav_top_left.json','side-top-left',false);
-    // 主体菜单生成 [请求地址,过滤ID,是否展开,携带参数]
-    vipNav.main('./json/nav_main.json','side-main',true);
-
-    // you code ...
-
-
-});
+    function openapi(id) {
+        layer.open({
+            type: 2,
+            area: ['90%', '90%'],
+            fixed: false, //不固定
+            maxmin: true,
+            title:"api使用说明",
+            content: 'user/info/'+id+'.html',
+            end:function () {
+                myTable.reload();
+            }
+        });
+    }
 </script>
 </body>
 </html>
